@@ -12,9 +12,7 @@ let load = function(uri){
 	return axios.get(server + uri).catch(show_error);
 }
 
-
-
 export default {
-    init : init
+    init : init,
 	load : load
 }
