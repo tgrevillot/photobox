@@ -8,7 +8,7 @@ $(document).ready(function() {
   
   $("#load_gallery").click(function() {
     photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
-    gallery.init('/www/canals5/photobox/photos?offset=0&size=5');
+    gallery.init('/www/canals5/photobox/photos?offset=0&size=8');
     gallery.loadGallery();  
   });
   
