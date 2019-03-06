@@ -4,8 +4,8 @@ let init = function(server_url){
 	server = server_url;
 }
 
-let show_error = function(){
-	console.log('ERREUR Loader !')
+let show_error = function(error){
+	console.log('ERREUR Loader : ' + error)
 }
 
 let load = function(uri){
