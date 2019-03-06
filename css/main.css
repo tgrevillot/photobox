@@ -63,10 +63,35 @@ nav #next {
 .gallery-container {
 }
 
-#lightbox_container {
-    display : none;
+.modal {
+  /*display : none*/
+  top : 0%;
+  height : 100%;
+  width : 100%;
+  position: absolute;
 }
 
+.modal > div{
+  position : relative;
+}
+
+#lightbox_container {
+  /*  display : none;*/
+}
+
+#lightbox {
+  background-color:  black;
+  padding : 10px;
+}
+
+#lightbox-head {
+  color : white;
+
+}
+
+#lightbox-img {
+  text-align: center;
+}
 
 .vignette{
   display: inline-block;
