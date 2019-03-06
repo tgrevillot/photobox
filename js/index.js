@@ -6,9 +6,11 @@ import lightbox from './lib/lightbox.js';
 $(document).ready(function() {
   photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
   
-  photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
-  gallery.init('/www/canals5/photobox/photos?offset=0&size=5');
-  gallery.loadGallery();  
+  $("#load_gallery").click(function() {
+    photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
+    gallery.init('/www/canals5/photobox/photos?offset=0&size=5');
+    gallery.loadGallery();  
+  });
   
   $('div.vignette > img').on('click', (e)=>{
 	lightbox.afficher(e);
