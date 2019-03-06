@@ -1,7 +1,7 @@
 //Import ...
 //import gallery from './lib/gallery.js';
 import photoloader from './lib/photoloader.js';
-//import lightbox from './lib/lightbox.js';
+import lightbox from './lib/lightbox.js';
 
 
 $(document).ready(function() {
@@ -9,9 +9,12 @@ $(document).ready(function() {
   //gallery.init();
   
   
-  $('img').on('click', (e)=>{
-	$('.lightboc_container').toggle('lightboc_container');
-	
+  $('div.vignette > img').on('click', (e)=>{
+	lightbox.afficher(e);
+  });
+  
+  $('p#lightbox_close').on('click', (e)=>{
+	lightbox.close(e);
   });
   
   $('#load_gallery').on('click',(e)=>{
