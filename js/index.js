@@ -5,11 +5,14 @@ import lightbox from './lib/lightbox.js';
 
 $(document).ready(function() {
   photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
-  
+  let firstAccess = true;
   $("#load_gallery").click(function() {
-    photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
-    gallery.init('/www/canals5/photobox/photos?offset=0&size=8');
-    gallery.loadGallery();  
+    if(firstAccess) {
+      photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
+      gallery.init('/www/canals5/photobox/photos?offset=0&size=8');
+      gallery.loadGallery();  
+      firstAccess = false;
+    }
   });
   
   $('div.vignette > img').on('click', (e)=>{
