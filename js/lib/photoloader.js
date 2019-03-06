@@ -15,6 +15,6 @@ let load = function(uri){
 
 
 export default {
-    init : init
+    init : init,
 	load : load
 }
