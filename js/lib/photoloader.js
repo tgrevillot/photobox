@@ -5,7 +5,7 @@ let init = function(server_url){
 }
 
 let show_error = function(){
-	console.log('ERREUR !')
+	console.log('ERREUR Loader !')
 }
 
 let load = function(uri){
