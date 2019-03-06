@@ -1,6 +1,7 @@
 
 
 let init = function(e){
+	console.log("Ouah !");
 	create(e);
 	load();
 }
