@@ -4,11 +4,17 @@ import photoloader from './lib/photoloader.js';
 import lightbox from './lib/lightbox.js';
 
 $(document).ready(function() {
-  photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
+  let firstAccess = true;
+  let nbPhotoParPage = 8;
   
-  photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
-  gallery.init('/www/canals5/photobox/photos?offset=0&size=5');
-  gallery.loadGallery();  
+  $("#load_gallery").click(function() {
+    //if(firstAccess) {
+      photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
+      gallery.init('/www/canals5/photobox/photos?offset=0&size=' + nbPhotoParPage);
+      gallery.loadGallery();  
+      firstAccess = false;
+    //}
+  });
   
   $('div.vignette > img').ready(function(){
 	lightbox.afficher();
