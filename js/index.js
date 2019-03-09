@@ -10,13 +10,13 @@ $(document).ready(function() {
   gallery.init('/www/canals5/photobox/photos?offset=0&size=5');
   gallery.loadGallery();  
   
-  $('div.vignette > img').on('click', (e)=>{
-	lightbox.afficher(e);
+  $('div.vignette > img').ready(function(){
+	lightbox.afficher();
+	lightbox.close();  
   });
   
-  $('p#lightbox_close').on('click', (e)=>{
-	lightbox.close(e);
-  });
+  
+  
   
   $('#load_gallery').on('click',(e)=>{
     let photos = photoloader.load('/www/canals5/photobox/photos/?offset=8&size=12');
