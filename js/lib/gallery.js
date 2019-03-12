@@ -1,4 +1,5 @@
 import loader from './photoloader.js';
+import lightbox from './lightbox.js';
 
 let id_gallery;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
@@ -49,7 +50,16 @@ function traitementImages(response) {
         $('.vignette').remove();
         loader.load(response.data.links.prev.href).then(traitementImages);
     });
+	
+	clickOnImg();
 }
+
+
+function clickOnImg(){
+		lightbox.afficher();
+		lightbox.close();
+	}
+
 
 /**
  * [private] Insère les données chargées dans la gallerie
@@ -61,8 +71,8 @@ function insertData(response) {
     let srcImage = response.photo.thumbnail.href;
 
     let stringImg = `<div class="vignette">
-        <img data-img=" ${server_endpoint + imgPhotoNormal}
-            data-uri=" ${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}
+        <img data-img="${server_endpoint + imgPhotoNormal}"
+            data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
              src="${server_endpoint + srcImage}">
              <div>${response.photo.titre}</div>\
         </div>`;

@@ -12,23 +12,14 @@ $(document).ready(function() {
       photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
       gallery.init('/www/canals5/photobox/photos?offset=0&size=' + nbPhotoParPage);
       gallery.loadGallery();  
+	  //console.log("Ouah !"); clickOnImg();
       firstAccess = false;
     //}
   });
   
-  $('div.vignette > img').ready(function(){
-	lightbox.afficher();
-	lightbox.close();  
-  });
-  
-  
-  
-  
   $('#load_gallery').on('click',(e)=>{
     let photos = photoloader.load('/www/canals5/photobox/photos/?offset=8&size=12');
-	photos.then((resp) => console.log(resp));
+	photos.then((resp) => {console.log(resp);} );
   });
-  
-  
   
 });
