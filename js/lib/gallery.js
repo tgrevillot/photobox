@@ -43,12 +43,14 @@ function traitementImages(response) {
     //On affecte les liens à la dernière ou première page selon l'état
     if(previousLink === undefined || previousLink === lienPrev)
         lienPrev = response.data.links.last.href;
-    else if(nextLink == undefined || nextLink === lienNext)
+    else if(nextLink === undefined || nextLink === lienNext)
         lienNext = response.data.links.first.href;
 
     //On met à jour les variables de module
     previousLink = lienPrev;
     nextLink = lienNext;
+	console.log(lienPrev);
+	console.log(lienNext);
     
     //Désactivation des handlers précédents
     $('#next').off();
@@ -56,16 +58,20 @@ function traitementImages(response) {
 
     $('#next').click(function() {
         $('.vignette').remove();
+		//Désactivation des listeners sur la lightBox
 		lightbox.remove();
         loader.load(lienNext).then(traitementImages);
     });
 
     $('#previous').click(function() {
         $('.vignette').remove();
+		//Désactivation des listeners sur la lightBox
 		lightbox.remove();
         loader.load(lienPrev).then(traitementImages);
     });
 	
+	// Déclaration des listener sur les images pour la lightBox
+	// (ouverture et fermeture de l'image)
 	lightbox.afficher();
 	lightbox.close();
 }
