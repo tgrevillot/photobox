@@ -2,6 +2,8 @@ import loader from './photoloader.js';
 import lightbox from './lightbox.js';
 
 let id_gallery;
+let previousLink;
+let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
 
 /**
@@ -35,8 +37,19 @@ function traitementImages(response) {
 
     //On va affecter maintenant les urls de page suivante et page précédente
     //Pour ça on va modifier leurs handler d'évènement
-    let lienNext = response.data.links.next
+    let lienNext = response.data.links.next.href;
+    let lienPrev = response.data.links.prev.href;
 
+    //On affecte les liens à la dernière ou première page selon l'état
+    if(previousLink === undefined || previousLink === lienPrev)
+        lienPrev = response.data.links.last.href;
+    else if(nextLink == undefined || nextLink === lienNext)
+        lienNext = response.data.links.first.href;
+
+    //On met à jour les variables de module
+    previousLink = lienPrev;
+    nextLink = lienNext;
+    
     //Désactivation des handlers précédents
     $('#next').off();
     $('#previous').off();
@@ -44,13 +57,13 @@ function traitementImages(response) {
     $('#next').click(function() {
         $('.vignette').remove();
 		lightbox.remove();
-        loader.load(lienNext.href).then(traitementImages);
+        loader.load(lienNext).then(traitementImages);
     });
 
     $('#previous').click(function() {
         $('.vignette').remove();
 		lightbox.remove();
-        loader.load(response.data.links.prev.href).then(traitementImages);
+        loader.load(lienPrev).then(traitementImages);
     });
 	
 	lightbox.afficher();
