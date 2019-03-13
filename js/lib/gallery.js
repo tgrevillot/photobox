@@ -93,7 +93,6 @@ function insertData(response) {
     let div = document.querySelector("#photobox-gallery");
     let divDuDessus = $(div);
     img.appendTo(divDuDessus);
-    //$('.vignette').replaceWith(img);
 }
 
 export default {

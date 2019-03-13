@@ -25,9 +25,22 @@ let remove = function(){
 	$('div.vignette > img').off();
 }
 
+function nextPicture() {
+	$('#llbox_next').on('click', (e) => {
+		//TODO : A COMPLETER
+	});
+}
+
+function prevPicture() {
+	$('#llbox_prev').on('click', (e) => {
+		//TODO : A COMPLETER
+	})
+}
 
 export default {
     afficher : afficher,
 	remove : remove,
-	close : close
+	close : close,
+	nextPicture: nextPicture,
+	prevPicture: prevPicture
 }
