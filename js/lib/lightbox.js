@@ -20,8 +20,14 @@ let close = function(){
 	});
 }
 
+let remove = function(){
+	$('p#lightbox_close').off();
+	$('div.vignette > img').off();
+}
+
 
 export default {
     afficher : afficher,
+	remove : remove,
 	close : close
 }

@@ -43,22 +43,19 @@ function traitementImages(response) {
 
     $('#next').click(function() {
         $('.vignette').remove();
+		lightbox.remove();
         loader.load(lienNext.href).then(traitementImages);
     });
 
     $('#previous').click(function() {
         $('.vignette').remove();
+		lightbox.remove();
         loader.load(response.data.links.prev.href).then(traitementImages);
     });
 	
-	clickOnImg();
+	lightbox.afficher();
+	lightbox.close();
 }
-
-
-function clickOnImg(){
-		lightbox.afficher();
-		lightbox.close();
-	}
 
 
 /**
