@@ -8,13 +8,13 @@ $(document).ready(function() {
   let nbPhotoParPage = 8;
   
   $("#load_gallery").click(function() {
-    //if(firstAccess) {
+    if(firstAccess) {
       photoloader.init('https://webetu.iutnc.univ-lorraine.fr');
       gallery.init('/www/canals5/photobox/photos?offset=0&size=' + nbPhotoParPage);
       gallery.loadGallery();  
-	  //console.log("Ouah !"); clickOnImg();
+	  
       firstAccess = false;
-    //}
+    }
   });
   
   $('#load_gallery').on('click',(e)=>{
