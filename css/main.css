@@ -90,23 +90,23 @@ nav #next {
   color : white;
   text-align: left;
   padding-bottom: 10px;
-
 }
 
 #lightbox-img > img{
   height: 90vh;
-
 }
 
 #lightbox_close{
-  width : 20px;
+  width : 1.5vw;
   display: inline-block;
-
 }
 
 #lightbox_title{
-  margin-left: 47vw;
+  width : 95vw;
   display: inline-block;
+  font-weight: bold;
+  font-size : 1.5em;
+  text-align: center;
 }
 
 .vignette{
