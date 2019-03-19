@@ -7,16 +7,16 @@ let afficher = function(){
 		//ID des flèches : llbox_prev et llbox_next
 		let titre = $(e.target).next().text();
 		$('h1#lightbox_title').text(titre);
-		
-		$('.lightboc_container').toggle('lightboc_container');
+
+		$('.lightboc_container').show('lightboc_container');
 	});
-	
-	
+
+
 }
 
 let close = function(){
 	$('p#lightbox_close').on('click', (e)=>{
-		$('.lightboc_container').toggle('lightboc_container');
+		$('.lightboc_container').hide('lightboc_container');
 	});
 }
 

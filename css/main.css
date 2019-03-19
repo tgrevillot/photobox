@@ -84,7 +84,7 @@ nav #next {
 
 #lightbox {
   display: inline-block;
-  background-color:  black;
+  background-color: #6B6962;
   padding : 10px;
   text-align: center;
 }
@@ -107,7 +107,7 @@ nav #next {
 
 #llbox-nav-next {
   display: inline-block;
-  color: white;
+  color: #EEC90C;
   font-size: 5em;
   vertical-align: middle;
   width : 15vw;
@@ -116,7 +116,7 @@ nav #next {
 
 #llbox-nav-prev {
   font-size: 5em;
-  color: white;
+  color: #EEC90C;
   display: inline-block;
   vertical-align: middle;
   width : 15vw;
