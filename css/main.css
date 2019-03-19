@@ -76,11 +76,14 @@ nav #next {
   position : relative;
 }
 
+
+
 #lightbox_container {
   display : none;
 }
 
 #lightbox {
+  display: inline-block;
   background-color:  black;
   padding : 10px;
   text-align: center;
@@ -92,8 +95,33 @@ nav #next {
   padding-bottom: 10px;
 }
 
+#lightbox-nav-img > div{
+ display:inline-block;
+}
+
 #lightbox-img > img{
-  height: 90vh;
+  display: inline-block;
+  max-height: 90vh;
+  max-width: 60vw;
+}
+
+#llbox-nav-next {
+  display: inline-block;
+  color: white;
+  font-size: 5em;
+  vertical-align: middle;
+
+}
+
+#llbox-nav-prev {
+  font-size: 5em;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#llbox-nav-prev > p{
+  align-self: center;
 }
 
 #lightbox_close{
