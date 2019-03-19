@@ -49,8 +49,6 @@ function traitementImages(response) {
     //On met à jour les variables de module
     previousLink = lienPrev;
     nextLink = lienNext;
-	console.log(lienPrev);
-	console.log(lienNext);
     
     //Désactivation des handlers précédents
     $('#next').off();
@@ -89,8 +87,9 @@ function insertData(response) {
     let stringImg = `<div class="vignette">
         <img data-img="${server_endpoint + imgPhotoNormal}"
             data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
-             src="${server_endpoint + srcImage}">
-             <div>${response.photo.titre}</div>\
+             src="${server_endpoint + srcImage}"
+             id="${idPhotoNormal}">
+             <div id="titre:${idPhotoNormal}">${response.photo.titre}</div>\
         </div>`;
 
     let img = $(stringImg);
