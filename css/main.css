@@ -110,7 +110,7 @@ nav #next {
   color: white;
   font-size: 5em;
   vertical-align: middle;
-
+  margin-left: 7%;
 }
 
 #llbox-nav-prev {
@@ -118,6 +118,7 @@ nav #next {
   color: white;
   display: inline-block;
   vertical-align: middle;
+  margin-right: 7%;
 }
 
 #llbox-nav-prev > p{
