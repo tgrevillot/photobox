@@ -5,6 +5,7 @@ let id_gallery;
 let previousLink;
 let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
+let indicePhoto;
 
 /**
  * Initialisation de notre chargeur de gallery
@@ -13,6 +14,7 @@ function init(id) {
     //TODO A COMPLETER
     let element = $('#load_gallery');
     id_gallery = id;
+    indicePhoto = 0;
 }
 
 /**
@@ -88,12 +90,12 @@ function insertData(response) {
         <img data-img="${server_endpoint + imgPhotoNormal}"
             data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
              src="${server_endpoint + srcImage}"
-             id="${idPhotoNormal}">
+             id="${indicePhoto}">
              <div id="titre:${idPhotoNormal}">${response.photo.titre}</div>\
         </div>`;
 
     let img = $(stringImg);
-
+    indicePhoto++;
     //On ajoute le divGlobal à la page
     let div = document.querySelector("#photobox-gallery");
     let divDuDessus = $(div);
