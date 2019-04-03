@@ -5,6 +5,7 @@ let id_gallery;
 let previousLink;
 let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
+let tabPhotos;
 
 /**
  * Initialisation de notre chargeur de gallery
@@ -31,7 +32,7 @@ function loadGallery() {
  */
 function traitementImages(response) {
     //On va envoyer une requête pour chaque photo puis l'insérer
-    let tabPhotos = response.data.photos;
+    tabPhotos = response.data.photos;
     //Pour chaque photos on va l'afficher via insertData
     tabPhotos.forEach(insertData);
 
@@ -49,8 +50,8 @@ function traitementImages(response) {
     //On met à jour les variables de module
     previousLink = lienPrev;
     nextLink = lienNext;
-	console.log(lienPrev);
-	console.log(lienNext);
+	//console.log(lienPrev);
+	//console.log(lienNext);
     
     //Désactivation des handlers précédents
     $('#next').off();
@@ -85,11 +86,13 @@ function insertData(response) {
     let imgPhotoNormal = response.photo.original.href;
     let idPhotoNormal = response.photo.id
     let srcImage = response.photo.thumbnail.href;
+	let titreImage = response.photo.titre;
 
     let stringImg = `<div class="vignette">
         <img data-img="${server_endpoint + imgPhotoNormal}"
             data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
-             src="${server_endpoint + srcImage}">
+             src="${server_endpoint + srcImage}"
+			 title="${titreImage}" >
              <div>${response.photo.titre}</div>\
         </div>`;
 
@@ -101,7 +104,13 @@ function insertData(response) {
     img.appendTo(divDuDessus);
 }
 
+function getPhotos(){
+	//console.log(tabPhoto);
+	return tabPhotos;
+}
+
 export default {
     init: init,
-    loadGallery: loadGallery
+    loadGallery: loadGallery,
+	getPhotos: getPhotos
 }

@@ -9,7 +9,16 @@ let show_error = function(error, uri = "unknow"){
 }
 
 let load = function(uri){
-	return axios.get(server + uri).catch(show_error, uri);
+	let url;
+	
+	if(uri.substr(0,8) == "https://"){
+		url = uri;
+	} else {
+		url = server + uri;
+	}
+	
+	axios.defaults.withCredentials = true;
+	return axios.get(url).catch(show_error, uri);
 }
 
 export default {
