@@ -1,3 +1,5 @@
+import gallery from "./gallery.js";
+import loader from './photoloader.js';
 let photoActuelle;
 
 let afficher = function(){
@@ -37,8 +39,10 @@ let remove = function(){
 function nextPicture() {
 	//Permet de passer à la photo suivante via le chevron
 	$('#llbox-nav-next').on('click', (e) => {
-		if(photoActuelle == 7)
-			photoActuelle = -1;
+		if(photoActuelle == 7) {
+			photoActuelle = 0;
+			loader.load(gallery.nextLink()).then(gallery.insertData);
+		}
 		let photo = $('#' + (++photoActuelle));
 		let titre = photo.next().text();
 		afficherPictureOuverte(photo.attr('data-img'), titre);
@@ -54,8 +58,10 @@ function afficherPictureOuverte(photo, titre) {
 function prevPicture() {
 	//Event appelé lors de l'appui sur le chevron précédent
 	$('#llbox-nav-prev').on('click', (e) => {
-		if(photoActuelle === 0)
+		if(photoActuelle === 0) {
 			photoActuelle = 8;
+			loader.load(gallery.previousLink()).then(gallery.insertData);
+		}
 		let photo = $('#' + (--photoActuelle));
 		let titre = photo.next().text();
 		afficherPictureOuverte(photo.attr('data-img'), titre);

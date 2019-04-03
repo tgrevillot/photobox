@@ -11,7 +11,6 @@ let indicePhoto;
  * Initialisation de notre chargeur de gallery
  */
 function init(id) {
-    //TODO A COMPLETER
     let element = $('#load_gallery');
     id_gallery = id;
     indicePhoto = 0;
@@ -102,7 +101,18 @@ function insertData(response) {
     img.appendTo(divDuDessus);
 }
 
+function getNextLink() {
+    return nextLink;
+}
+
+function getPrevLink() {
+    return previousLink;
+}
+
 export default {
     init: init,
-    loadGallery: loadGallery
+    loadGallery: loadGallery,
+    insertData: insertData,
+    nextLink: getNextLink,
+    previousLink: getPrevLink
 }
