@@ -2,6 +2,7 @@ import loader from './photoloader.js';
 import gallery from './gallery.js';
 
 let id;
+let photoActuelle;
 
 let afficher = function(){
 	$('div.vignette > img').on('click', (e)=>{
@@ -17,7 +18,12 @@ let afficher = function(){
 												.then(affichageInfo)
 												.catch(affichageErreur);
 		
-		$('.lightboc_container').toggle('lightboc_container');
+		//$('.lightboc_container').toggle('lightboc_container');
+		
+		photoActuelle = $(e.target).attr('id');
+		$('.lightboc_container').show('lightboc_container');
+		nextPicture();
+		prevPicture();
 	});
 }
 
@@ -54,29 +60,40 @@ let affichageInfo = function(rep){
 		console.log(e.titre);
 		console.log(e.content);
 	}
-	
 }
 
 let close = function(){
 	$('p#lightbox_close').on('click', (e)=>{
-		$('.lightboc_container').toggle('lightboc_container');
+		$('.lightboc_container').hide('lightboc_container');
 	});
 }
 
 let remove = function(){
 	$('p#lightbox_close').off();
 	$('div.vignette > img').off();
+	$('#llbox-nav-prev').off();
+	$('#llbox-nav-next').off();
 }
 
 function nextPicture() {
-	$('#llbox_next').on('click', (e) => {
-		//TODO : A COMPLETER
+	$('#llbox-nav-next').on('click', (e) => {
+		let photo = $('#' + photoActuelle)
+		let titre = $('#titre:' + photoActuelle);
+		console.log(titre)
+		afficherPictureOuverte(photo.attr('data-img'), titre.next.text);
 	});
 }
 
+function afficherPictureOuverte(photo, titre) {
+	console.log(titre)
+	$('img#lightbox_full_img').attr('src', photo);
+	$('h1#lightbox_title').text(titre);
+}
+
 function prevPicture() {
-	$('#llbox_prev').on('click', (e) => {
+	$('#llbox-nav-prev').on('click', (e) => {
 		//TODO : A COMPLETER
+		console.log("Coucou")
 	})
 }
 
