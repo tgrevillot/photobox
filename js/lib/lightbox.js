@@ -35,19 +35,43 @@ let affichageErreur = function(error, uri = "unknow"){
 
 let get_Info = function(rep){
 	
-	console.log(rep.data.photo.id);
+	let id = rep.data.photo.id;
+	let titre = rep.data.photo.titre;
+	let descr = rep.data.photo.descr;
+	let format = rep.data.photo.format;
+	let height = rep.data.photo.height;
+	let width = rep.data.photo.width;
+	let size = Math.round(rep.data.photo.size / 1024);
+	let linksComments = rep.data.links.comments.href
+	
+	let info = `<div id="lightbox-info">
+			<br/>
+			<p>ID : ${id}</p>
+			<p>Titre : ${titre}</p>
+			<p>Descritption : ${descr}</p>
+			<p>Format : ${format}</p>
+			<p>Résolution : ${width} x ${height}</p>
+			<p>Poids : ${size}</p>
+		</div>`;
+
+    let img = $(info);
+	
+	img.appendTo($("div#lightbox")).css('color','#FFFFFF');
+	//img.appendTo(divDuDessus);
+	
+	
+	/*console.log(rep.data.photo.id);
 	console.log(rep.data.photo.titre);
 	console.log(rep.data.photo.descr);
 	console.log(rep.data.photo.format);
 	console.log(rep.data.photo.height);
 	console.log(rep.data.photo.width);
-	console.log(Math.round(rep.data.photo.size / 1024));
+	console.log(Math.round(rep.data.photo.size / 1024));*/
 	//console.log(rep.data.links.categorie);
 	//console.log(rep.data.links.comments);
 	loader.init('https://webetu.iutnc.univ-lorraine.fr');
 	
-	return loader.load(rep.data.links.comments.href);
-	//axios.get(rep.data.links.categorie.href);
+	return loader.load(linksComments);
 }
 
 let affichageInfo = function(rep){
@@ -65,6 +89,8 @@ let affichageInfo = function(rep){
 let close = function(){
 	$('p#lightbox_close').on('click', (e)=>{
 		$('.lightboc_container').hide('lightboc_container');
+		//$('img#lightbox_full_img').remove();
+		$('div#lightbox-info').remove();
 	});
 }
 
