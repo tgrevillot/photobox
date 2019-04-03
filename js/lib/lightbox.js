@@ -20,13 +20,18 @@ let afficher = function(){
 												.then(affichageInfo)
 												.catch(affichageErreur);
 		
-		//$('.lightboc_container').toggle('lightboc_container');
 		photoActuelle = parseInt($(e.target).attr('id'));
 		$('.lightboc_container').show('lightboc_container');
+		
+		$('html').css('overflow-y', 'hidden');
+		//$('div#lightbox_container').css('overflow-y', 'scroll');
 		
 		nextPicture();
 		prevPicture();
 	});
+	
+	// Permet le scroll de la fenêtre modal quand elle est affichée (ne fonctionne qu'a l'extérieur du listener)
+	$('div#lightbox_container').css('overflow-y','scroll');
 }
 
 // sle
@@ -59,18 +64,7 @@ let get_Info = function(rep){
     let img = $(info);
 	
 	img.appendTo($("div#lightbox")).css('color','#FFFFFF');
-	//img.appendTo(divDuDessus);
 	
-	
-	/*console.log(rep.data.photo.id);
-	console.log(rep.data.photo.titre);
-	console.log(rep.data.photo.descr);
-	console.log(rep.data.photo.format);
-	console.log(rep.data.photo.height);
-	console.log(rep.data.photo.width);
-	console.log(Math.round(rep.data.photo.size / 1024));*/
-	//console.log(rep.data.links.categorie);
-	//console.log(rep.data.links.comments);
 	loader.init('https://webetu.iutnc.univ-lorraine.fr');
 	
 	return loader.load(linksComments);
@@ -80,12 +74,12 @@ let affichageInfo = function(rep){
 	
 	let tabComments = rep.data.comments;
 	
-	for(let e of tabComments){
+	/*for(let e of tabComments){
 		console.log(e.pseudo);
 		console.log(e.date);
 		console.log(e.titre);
 		console.log(e.content);
-	}
+	}*/
 }
 
 let close = function(){
@@ -94,6 +88,10 @@ let close = function(){
 		$('.lightboc_container').hide('lightboc_container');
 		//$('img#lightbox_full_img').remove();
 		$('div#lightbox-info').remove();
+		
+		$('html').css('overflow-y', 'scroll');
+		$('div#lightbox_container').css('overflow-y', 'hidden');
+		
 		$('#llbox-nav-prev').off();
 		$('#llbox-nav-next').off();
 	});
