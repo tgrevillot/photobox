@@ -7,7 +7,6 @@ let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
 let tabPhotos;
 let indicePhoto;
-
 /**
  * Initialisation de notre chargeur de gallery
  */
@@ -73,9 +72,9 @@ function traitementImages(response) {
     });
 	
 	// Déclaration des listener sur les images pour la lightBox
-	// (ouverture et fermeture de l'image)
-	lightbox.afficher();
-	lightbox.close();
+    // (ouverture et fermeture de l'image)
+	    lightbox.afficher();
+        lightbox.close();
 	
 	
 }

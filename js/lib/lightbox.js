@@ -168,16 +168,11 @@ function nextPicture() {
 			//TODO REVOIR L'UTILISATION DE LA METHODE traitementImage de Gallery
 			$('.vignette').remove();
 			loader.load(gallery.nextLink()).then((response) => {
-				response.data.photos.forEach(gallery.traitementImages(response));
-				let photo = $('#' + (++photoActuelle));
-				let titre = photo.next().text();
-				afficherPictureOuverte(photo.attr('data-img'), titre);
+				gallery.traitementImages(response);
+				loadNextPicture()
 			});
-		} else {
-			let photo = $('#' + (++photoActuelle));
-			let titre = photo.next().text();
-			afficherPictureOuverte(photo.attr('data-img'), titre);
-		}
+		} else 
+			loadNextPicture();
 
 	});
 }
@@ -194,20 +189,24 @@ function prevPicture() {
 		if(photoActuelle === 0) {
 			photoActuelle = 8;
 			loader.load(gallery.previousLink()).then((response) => {
-				console.log("La promesse est tenue")
-				response.data.photos.forEach(gallery.traitementImages(response));
-				console.log("Sortie de traitementImage")
-				let photo = $('#' + (--photoActuelle));
-				let titre = photo.next().text();
-				afficherPictureOuverte(photo.attr('data-img'), titre);
+				gallery.traitementImages(response);
+				loadPrevPicture();
 			});
-		} else {
-			let photo = $('#' + (--photoActuelle));
-			let titre = photo.next().text();
-			afficherPictureOuverte(photo.attr('data-img'), titre);
-		}
-
+		} else 
+			loadPrevPicture();
 	})
+}
+
+function loadPrevPicture() {
+	let photo = $('#' + (--photoActuelle));
+	let titre = photo.next().text();
+	afficherPictureOuverte(photo.attr('data-img'), titre);
+}
+
+function loadNextPicture() {
+	let photo = $('#' + (++photoActuelle));
+	let titre = photo.next().text();
+	afficherPictureOuverte(photo.attr('data-img'), titre);
 }
 
 export default {
