@@ -188,6 +188,7 @@ function prevPicture() {
 	$('#llbox-nav-prev').on('click', (e) => {
 		if(photoActuelle === 0) {
 			photoActuelle = 8;
+			$('.vignette').remove();
 			loader.load(gallery.previousLink()).then((response) => {
 				gallery.traitementImages(response);
 				loadPrevPicture();
