@@ -165,7 +165,6 @@ function nextPicture() {
 	$('#llbox-nav-next').on('click', (e) => {
 		if(photoActuelle == 7) {
 			photoActuelle = -1;
-			//TODO REVOIR L'UTILISATION DE LA METHODE traitementImage de Gallery
 			$('.vignette').remove();
 			loader.load(gallery.nextLink()).then((response) => {
 				gallery.traitementImages(response);
