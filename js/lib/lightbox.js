@@ -1,8 +1,8 @@
 import loader from './photoloader.js';
 import gallery from './gallery.js';
 
-let id;
 let photoActuelle;
+let photoURI;
 
 let afficher = function(){
 	$('div.vignette > img').on('click', (e)=>{
@@ -15,8 +15,8 @@ let afficher = function(){
 		$('h1#lightbox_title').text(titre);
 		
 		// Charge les infos de la photo (utilisation des promosses)
-		console.log(id);
-		chargerInfo($(e.target));
+		photoURI = $(e.target).attr('data-uri');
+		chargerInfo();
 		
 		photoActuelle = parseInt($(e.target).attr('id'));
 		$('.lightboc_container').show('lightboc_container');
@@ -35,18 +35,18 @@ let afficher = function(){
 // sle
 
 // Permet de recharger les infos de la photo courante (dans le cas où on change de photo)
-function reChargerInfo(target){
+function reChargerInfo(){
 	$("div#lightbox-info").remove();
 	$("div#lightbox-comments").remove();
-	chargerInfo(target);
+	chargerInfo();
 }
 
 // Permet de charger les infos de la photo (promesse de promesse pour les infos et les commentaires)
-function chargerInfo(target){
+function chargerInfo(){
 	loader.init('https://webetu.iutnc.univ-lorraine.fr');
-	loader.load(target.attr('data-uri')).then(get_Info)
-										.then(get_Com)
-										.catch(affichageErreur);
+	loader.load(photoURI).then(get_Info)
+						.then(get_Com)
+						.catch(affichageErreur);
 }
 
 // Affichage d'une erreur en alerte
@@ -66,26 +66,26 @@ let get_Info = function(rep){
 	let size = Math.round(rep.data.photo.size / 1024);
 	let linksComments = rep.data.links.comments.href
 		
-	let info = `<div id="lightbox-info"
-					<h2 class="text-center m-4">Informations sur l'image :</h2>
-					<dl class="row">
+	let info = `<div id="lightbox-info" class="px-5">
+					<h2 class="text-center m-4 pt-5">Informations sur l'image :</h2>
+					<dl class="row px-5">
 					  <dt class="col-sm-5">ID :</dt>
-					  <dd class="col-sm-7">${idP}</dd>
+					  <dd class="col-sm-7 px-5">${idP}</dd>
 
 					  <dt class="col-sm-5">Titre :</dt>
-					  <dd class="col-sm-7">${titre}</dd>
+					  <dd class="col-sm-7 px-5">${titre}</dd>
 
 					  <dt class="col-sm-5">Descritption :</dt>
-					  <dd class="col-sm-7">${descr}</dd>
+					  <dd class="col-sm-7 px-5 text-left desc">${descr}</dd>
 
 					  <dt class="col-sm-5">Format :</dt>
-					  <dd class="col-sm-7">${format}</dd>
+					  <dd class="col-sm-7 px-5">${format}</dd>
 
 					  <dt class="col-sm-5">Résolution :</dt>
-					  <dd class="col-sm-7">${width}x${height}</dd>
+					  <dd class="col-sm-7 px-5">${width}x${height}</dd>
 					  
 					  <dt class="col-sm-5">Poids :</dt>
-					  <dd class="col-sm-7">${size} Mo</dd>
+					  <dd class="col-sm-7 px-5">${size} Mo</dd>
 					</dl>
 				</div>`
 
@@ -102,14 +102,37 @@ let get_Info = function(rep){
 let get_Com = function(rep){
 	
 	let tabComments = rep.data.comments;
-	let comments = `<div id="lightbox-comments">`;
-	comments += `<p>Commentaires :</p>`;
+	let comments = `<div id="lightbox-comments" class="d-inline">`;
+	comments += `<h2 class="text-center m-4 pt-5">Commentaires :</h2>`;
 	
 	for(let e of tabComments){
-		comments += `<p>Titre : ${e.titre}</p>`;
-		comments += `<p>Commentaire : ${e.content}</p>`;
-		comments += `<p>Pseudo : ${e.pseudo}</p>`;
-		comments += `<p>Date : ${e.date}</p>`;
+		
+		comments += `<div class="mx-auto mt-5">`;
+		
+		if(e.titre != "")
+			comments += `<h6 class="text-center m-4">${e.titre}</h6>`;
+		else
+			comments += `<h6 class="text-center m-4">Sans titre</h6>`;
+		
+		if(e.content != "")
+			comments += `<p class="comTxt">${e.content}</p>`;
+		else
+			comments += `<p class="comTxt">Commentaire vide</p>`;
+		
+		comments += `<span class="mx-auto mb-5 pb-4 border-bottom border-white">`;
+		
+		if(e.pseudo != "")
+			comments += `<p class="d-inline pr-5">Pseudo : ${e.pseudo}</p>`;
+		else
+			comments += `<p class="d-inline pr-5">Pseudo : Inconnu</p>`;
+		
+		if(e.date != "")
+			comments += `<p class="d-inline">Date : ${e.date}</p>`;
+		else
+			comments += `<p class="d-inline">Date : --/--/--</p>`;
+		
+		comments += `</span>`;
+		comments += `</div>`;
 	}
 	
 	comments += `</div>`;
@@ -118,18 +141,47 @@ let get_Com = function(rep){
 	
 	commentsDiv.appendTo($("div#lightbox")).css('color','#FFFFFF');
 	
-	let formAjout = `<div id="formAjout"><form id="ajouCom" method="POST" action= "">
-					<p>Ajouter un commentaire :</p>
-					<p>Pseudo : </p><input type="text" name="" value="" required>
-					<p>Titre : </p><input type="text" name="" value="" required>
-					<p>Commentaire : </p><textarea rows="5" cols="50" type="text" name="" value="" form="ajoutCom"></textarea>
-					<button class="btn" value="">Envoyer</button>
-					</form>
+	let formAjout = `<div id="formAjout">
+					<h2 class="text-center m-4 pt-5">Ajouter un commentaire :</h2>
+					<p class="mt-3">Pseudo : </p><input class="comPseudo d-inline" type="text" name="" value="" required>
+					<p class="mt-3">Titre : </p><input class="comTitre d-inline" type="text" name="" value="" required>
+					<p class="mt-3">Commentaire : </p><textarea class="com d-block mx-auto" rows="5" cols="50" type="text" name="" value="" form="ajoutCom"></textarea>
+					<button class="submitCom btn btn-light mt-4 mb-5 d-inline-block" value="">Envoyer</button>
 					</div>`;
 	
 	let formAjoutDiv = $(formAjout);
 	
 	formAjoutDiv.appendTo($("div#lightbox-comments"));
+	
+	// Ajout du listener sur le bouton d'envoie :
+	
+	$('button.submitCom').on('click', (e)=>{
+		envoieCom();
+	});
+}
+
+// Permet d'envoyer un commentaire sur l'API
+function envoieCom(){
+	let ajax = new XMLHttpRequest();
+	
+	let commentObject = { "titre"       : $('input.comTitre').val(),
+						  "content"     : $('textarea.com').val(),
+						  "pseudo"      : $('input.comPseudo').val()
+						}
+	
+	let commentJSON = JSON.stringify(commentObject);
+	
+	console.log(commentObject);
+	
+	// Envoie le commentaire :
+	ajax.open('POST', photoURI + "/comments", true);
+	ajax.setRequestHeader('Content-Type', 'application/json');
+	ajax.addEventListener('load', () => reChargerInfo());
+	ajax.send(commentJSON);
+	
+	$('input.comTitre').val("");
+	$('textarea.com').val("");
+	$('input.comPseudo').val("");
 }
 
 // Appel du listener pour fermer la fenêtre modal (lightbox)
@@ -167,7 +219,9 @@ function nextPicture() {
 		let photo = $('#' + (++photoActuelle));
 		let titre = photo.next().text();
 		afficherPictureOuverte(photo.attr('data-img'), titre);
-		reChargerInfo(photo);
+		
+		photoURI = photo.attr('data-uri');
+		reChargerInfo();
 	});
 }
 
@@ -185,7 +239,9 @@ function prevPicture() {
 		let photo = $('#' + (--photoActuelle));
 		let titre = photo.next().text();
 		afficherPictureOuverte(photo.attr('data-img'), titre);
-		reChargerInfo(photo);
+		
+		photoURI = photo.attr('data-uri');
+		reChargerInfo();
 	})
 }
 

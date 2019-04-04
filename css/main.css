@@ -48,6 +48,11 @@ table {
 div, nav, section, p, h1, h2 {
   box-sizing: border-box; }
 
+p.comTxt{
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
 nav {
   padding: 2em;
   font-size: 1.2em;
