@@ -1,3 +1,4 @@
+
 import loader from './photoloader.js';
 import gallery from './gallery.js';
 
@@ -214,14 +215,15 @@ let remove = function(){
 function nextPicture() {
 	//Permet de passer à la photo suivante via le chevron
 	$('#llbox-nav-next').on('click', (e) => {
-		if(photoActuelle == 7)
+		if(photoActuelle == 7) {
 			photoActuelle = -1;
-		let photo = $('#' + (++photoActuelle));
-		let titre = photo.next().text();
-		afficherPictureOuverte(photo.attr('data-img'), titre);
-		
-		photoURI = photo.attr('data-uri');
-		reChargerInfo();
+			$('.vignette').remove();
+			loader.load(gallery.nextLink()).then((response) => {
+				gallery.traitementImages(response);
+				loadNextPicture()
+			});
+		} else 
+			loadNextPicture();
 	});
 }
 
@@ -234,15 +236,32 @@ function afficherPictureOuverte(photo, titre) {
 function prevPicture() {
 	//Event appelé lors de l'appui sur le chevron précédent
 	$('#llbox-nav-prev').on('click', (e) => {
-		if(photoActuelle === 0)
-			photoActuelle = 8;
-		let photo = $('#' + (--photoActuelle));
-		let titre = photo.next().text();
-		afficherPictureOuverte(photo.attr('data-img'), titre);
-		
-		photoURI = photo.attr('data-uri');
-		reChargerInfo();
+		if(photoActuelle === 0) {
+			photoActuelle = 8;		
+			$('.vignette').remove();
+			loader.load(gallery.previousLink()).then((response) => {
+				gallery.traitementImages(response);
+				loadPrevPicture();
+			});
+		} else 
+			loadPrevPicture();
 	})
+}
+
+function loadPrevPicture() {
+	let photo = $('#' + (--photoActuelle));
+	let titre = photo.next().text();
+	afficherPictureOuverte(photo.attr('data-img'), titre);
+	photoURI = photo.attr('data-uri');
+	reChargerInfo();
+}
+
+function loadNextPicture() {
+	let photo = $('#' + (++photoActuelle));
+	let titre = photo.next().text();
+	afficherPictureOuverte(photo.attr('data-img'), titre);
+	photoURI = photo.attr('data-uri');
+	reChargerInfo();
 }
 
 export default {

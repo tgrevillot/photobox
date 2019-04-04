@@ -7,12 +7,10 @@ let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
 let tabPhotos;
 let indicePhoto;
-
 /**
  * Initialisation de notre chargeur de gallery
  */
 function init(id) {
-    //TODO A COMPLETER
     let element = $('#load_gallery');
     id_gallery = id;
     indicePhoto = 0;
@@ -33,6 +31,8 @@ function loadGallery() {
  *      Contenu du JSON : URL des images
  */
 function traitementImages(response) {
+    //On réinitialise l'ID à 0 à chaque nouveau chargement de pages
+    indicePhoto = 0;
     //On va envoyer une requête pour chaque photo puis l'insérer
     tabPhotos = response.data.photos;
     //Pour chaque photos on va l'afficher via insertData
@@ -72,9 +72,9 @@ function traitementImages(response) {
     });
 	
 	// Déclaration des listener sur les images pour la lightBox
-	// (ouverture et fermeture de l'image)
-	lightbox.afficher();
-	lightbox.close();
+    // (ouverture et fermeture de l'image)
+	    lightbox.afficher();
+        lightbox.close();
 	
 	
 }
@@ -95,7 +95,7 @@ function insertData(response) {
             data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
              src="${server_endpoint + srcImage}"
              id="${indicePhoto}">
-             <div id="titre:${idPhotoNormal}">${response.photo.titre}</div>\
+             <div id="titre:${idPhotoNormal}">${titreImage}</div>\
         </div>`;
 
     let img = $(stringImg);
@@ -106,6 +106,14 @@ function insertData(response) {
     img.appendTo(divDuDessus);
 }
 
+function getNextLink() {
+    return nextLink;
+}
+
+function getPrevLink() {
+    return previousLink;
+}
+
 function getPhotos(){
 	//console.log(tabPhoto);
 	return tabPhotos;
@@ -114,5 +122,9 @@ function getPhotos(){
 export default {
     init: init,
     loadGallery: loadGallery,
+    traitementImages: traitementImages,
+    insertData: insertData,
+    nextLink: getNextLink,
+    previousLink: getPrevLink,
 	getPhotos: getPhotos
 }
