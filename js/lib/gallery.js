@@ -76,6 +76,8 @@ function traitementImages(response) {
 	// (ouverture et fermeture de l'image)
 	lightbox.afficher();
 	lightbox.close();
+	
+	
 }
 
 
