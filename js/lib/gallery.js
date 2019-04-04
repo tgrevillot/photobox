@@ -5,6 +5,7 @@ let id_gallery;
 let previousLink;
 let nextLink;
 let server_endpoint = 'https://webetu.iutnc.univ-lorraine.fr';
+let tabPhotos;
 let indicePhoto;
 
 /**
@@ -31,8 +32,10 @@ function loadGallery() {
  *      Contenu du JSON : URL des images
  */
 function traitementImages(response) {
+    //On réinitialise l'ID à 0 à chaque nouveau chargement de pages
+    indicePhoto = 0;
     //On va envoyer une requête pour chaque photo puis l'insérer
-    let tabPhotos = response.data.photos;
+    tabPhotos = response.data.photos;
     //Pour chaque photos on va l'afficher via insertData
     tabPhotos.forEach(insertData);
 
@@ -84,13 +87,14 @@ function insertData(response) {
     let imgPhotoNormal = response.photo.original.href;
     let idPhotoNormal = response.photo.id
     let srcImage = response.photo.thumbnail.href;
+	let titreImage = response.photo.titre;
 
     let stringImg = `<div class="vignette">
         <img data-img="${server_endpoint + imgPhotoNormal}"
             data-uri="${server_endpoint}/www/canals5/photobox/photos/${idPhotoNormal}"
              src="${server_endpoint + srcImage}"
              id="${indicePhoto}">
-             <div id="titre:${idPhotoNormal}">${response.photo.titre}</div>\
+             <div id="titre:${idPhotoNormal}">${titreImage}</div>\
         </div>`;
 
     let img = $(stringImg);
@@ -109,10 +113,17 @@ function getPrevLink() {
     return previousLink;
 }
 
+function getPhotos(){
+	//console.log(tabPhoto);
+	return tabPhotos;
+}
+
 export default {
     init: init,
     loadGallery: loadGallery,
+    traitementImages: traitementImages,
     insertData: insertData,
     nextLink: getNextLink,
-    previousLink: getPrevLink
+    previousLink: getPrevLink,
+	getPhotos: getPhotos
 }
