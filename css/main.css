@@ -28,7 +28,8 @@ footer, header, hgroup, menu, nav, section {
   display: block; }
 
 body {
-  line-height: 1; }
+  line-height: 1;
+ }
 
 ol, ul {
   list-style: none; }
@@ -54,6 +55,7 @@ p.comTxt{
 }
 
 nav {
+  background-color: #2A7CCF;
   padding: 2em;
   font-size: 1.2em;
 }
@@ -66,8 +68,18 @@ nav #next {
 }
 
 .gallery-container {
+  padding-top: 10px;
 }
 
+button {
+  padding:6px 0 6px 0;
+	font:Bold 13px Arial;
+	background:#A8ADB2;
+	color:#fff;
+	width:100px;
+	border-radius:2px;
+	border:none;
+}
 
 .modal {
   /*display : none*/
@@ -121,6 +133,7 @@ nav #next {
   vertical-align: middle;
   width : 15vw;
   align-self: center;
+  cursor: pointer;
 }
 
 #llbox-nav-prev {
@@ -130,6 +143,7 @@ nav #next {
   vertical-align: middle;
   width : 15vw;
   align-self: center;
+  cursor: pointer;
 }
 
 #llbox-nav-prev > p{
@@ -139,6 +153,7 @@ nav #next {
 #lightbox_close{
   width : 1.5vw;
   display: inline-block;
+  cursor: pointer;
 }
 
 #lightbox_title{
@@ -177,4 +192,5 @@ nav #next {
 
 .vignette > img{
   max-height: 300px;
+  cursor: pointer;
 }
