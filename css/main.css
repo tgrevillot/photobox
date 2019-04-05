@@ -149,6 +149,19 @@ nav #next {
   text-align: center;
 }
 
+#lightbox-comments {
+
+}
+
+#lightbox-info {
+  background-color: white;
+  padding-bottom: 10px;
+}
+
+#lightbox-info > h2,dl {
+  color : black;
+}
+
 .vignette{
   display: inline-block;
   border: solid;
