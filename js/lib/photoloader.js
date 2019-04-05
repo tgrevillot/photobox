@@ -11,10 +11,12 @@ let show_error = function(error, uri = "unknow"){
 let load = function(uri){
 	let url;
 	
-	if(uri.substr(0,8) == "https://"){
-		url = uri;
-	} else {
-		url = server + uri;
+	if(uri != undefined){
+		if(uri.substr(0,8) == "https://"){
+			url = uri;
+		} else {
+			url = server + uri;
+		}
 	}
 	
 	axios.defaults.withCredentials = true;
